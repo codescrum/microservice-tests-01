@@ -6,10 +6,7 @@ This is a repo for microservice tests using rabbitmq.
 
 1. [Install rabbitmq](https://www.rabbitmq.com/download.html)
 2. Clone this repo
-```bash
-git clone git@github.com:gato-omega/microservices-tests.git
-```
-3. go into directory
+3. go into the cloned project directory
 ```bash
 cd microservices-tests
 ```
