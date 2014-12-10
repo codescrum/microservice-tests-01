@@ -26,5 +26,9 @@ module MyKeyboardHandler
 end
 
 EM.run {
+  puts " [*] Keybord input ------"
+  puts " [*] Enter lines of text and press Enter to send a message. To exit press CTRL+C"
+  puts " [*] To exit press CTRL+C"
+  puts
   EM.open_keyboard(MyKeyboardHandler)
 }
