@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-###############################
-## Message Processor/Encoder ##
-###############################
+##############################
+## Message Processor/Worker ##
+##############################
 
 require "bunny"
 
@@ -18,7 +18,7 @@ def send_message(data, queue)
   send_ch = send_conn.create_channel
   send_q = send_ch.queue(queue)
   send_ch.default_exchange.publish(data, :routing_key => send_q.name, :persistent => true)
-  puts " [x] Processed/Encoded '#{data}'"
+  puts " [x] Processed '#{data}'"
   send_conn.close
 end
 
@@ -30,7 +30,7 @@ q    = ch.queue("encode")
 
 begin
   puts " [*] Encoder ------"
-  puts " [*] Waiting for messages to process/encode"
+  puts " [*] Waiting for messages to process"
   puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
     if body.match(pattern)
