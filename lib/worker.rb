@@ -44,7 +44,7 @@ begin
 
     # Only if contains a number, process it, otherwise discard it
     if body.match(pattern)
-      send_message(body.reverse, "receiver")
+      send_message(body.upcase, "receiver")
       send_message("Processed: #{body}", "logger")
     else
       send_message("Discarded: #{body}", "logger")
