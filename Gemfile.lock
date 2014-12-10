@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    amq-protocol (1.9.2)
+    bunny (1.6.3)
+      amq-protocol (>= 1.9.2)
+    eventmachine (1.0.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bunny
+  eventmachine
