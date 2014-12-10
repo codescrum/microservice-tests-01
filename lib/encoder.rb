@@ -14,7 +14,7 @@ def send_message(data, queue)
   send_ch = send_conn.create_channel
   send_q = send_ch.queue(queue)
   send_ch.default_exchange.publish(data, :routing_key => send_q.name, :persistent => true)
-  puts " [x] Sent '#{data}'"
+  puts " [x] Processed/Encoded '#{data}'"
   send_conn.close
 end
 
@@ -25,7 +25,9 @@ ch   = conn.create_channel
 q    = ch.queue("encode")
 
 begin
-  puts " [*] Waiting for messages. To exit press CTRL+C"
+  puts " [*] Encoder ------"
+  puts " [*] Waiting for messages to process/encode"
+  puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
     if body.match(pattern)
       send_message(body.reverse, "receiver")

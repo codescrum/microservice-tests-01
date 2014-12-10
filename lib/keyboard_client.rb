@@ -19,7 +19,7 @@ module MyKeyboardHandler
     q    = ch.queue("queue_a")
 
     ch.default_exchange.publish(data, :routing_key => q.name, :persistent => true)
-    puts " [x] Sent '#{data}'"
+    puts " [x] Keyboard Sent '#{data}'"
 
     conn.close
   end

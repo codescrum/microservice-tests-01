@@ -13,9 +13,11 @@ ch   = conn.create_channel
 q    = ch.queue("receiver")
 
 begin
-  puts " [*] Waiting for messages. To exit press CTRL+C"
+  puts " [*] Final receiver ------"
+  puts " [*] Receiving processed/encoded messages..."
+  puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
-    puts " [x] Received #{body}"
+    puts " [x] Received '#{body}'"
   end
 rescue Interrupt => _
   conn.close
