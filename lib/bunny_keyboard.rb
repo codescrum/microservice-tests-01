@@ -16,9 +16,9 @@ module MyKeyboardHandler
     conn.start
 
     ch   = conn.create_channel
-    q    = ch.queue("hello")
+    q    = ch.queue("queue_a")
 
-    ch.default_exchange.publish(data, :routing_key => q.name)
+    ch.default_exchange.publish(data, :routing_key => q.name, :persistent => true)
     puts " [x] Sent '#{data}'"
 
     conn.close

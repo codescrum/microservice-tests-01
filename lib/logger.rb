@@ -6,11 +6,11 @@ require "bunny"
 # Require configuration
 require_relative 'configuration'
 
-conn = Bunny.new(Configuration.rabbitmq_url, automatically_recover: false)
+conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
 ch   = conn.create_channel
-q    = ch.queue("receiver")
+q    = ch.queue("logger")
 
 begin
   puts " [*] Waiting for messages. To exit press CTRL+C"
