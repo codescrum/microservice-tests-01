@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+####################
+## Final receiver ##
+####################
+
 require "bunny"
 
 # Require configuration

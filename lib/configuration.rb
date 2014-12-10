@@ -1,4 +1,9 @@
+####################
+## Configuration  ##
+####################
+
 # Configuration, to be more DRY
+# add connection urls here
 class Configuration
   def self.rabbitmq_url
     boxen_rabbitmq_url || default_url

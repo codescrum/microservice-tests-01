@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+#####################
+## Keyboard Client ##
+#####################
+
 require "bunny"
 
 require 'rubygems'
@@ -26,8 +30,8 @@ module MyKeyboardHandler
 end
 
 EM.run {
-  puts " [*] Keybord input ------"
-  puts " [*] Enter lines of text and press Enter to send a message. To exit press CTRL+C"
+  puts " [*] Keybord client ------"
+  puts " [*] Type text and press Enter to send a message"
   puts " [*] To exit press CTRL+C"
   puts
   EM.open_keyboard(MyKeyboardHandler)
