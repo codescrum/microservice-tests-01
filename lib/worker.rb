@@ -10,6 +10,7 @@ require "bunny"
 # Require configuration
 require_relative 'configuration'
 
+# A simple patter to use in a simple logic
 pattern = /\d/
 
 def send_message(data, queue)
@@ -41,10 +42,12 @@ begin
     sleep work_time
     puts "    [OK] done!"
 
+    # Only if contains a number, process it, otherwise discard it
     if body.match(pattern)
       send_message(body.reverse, "receiver")
+      send_message("Processed: #{body}", "logger")
     else
-      send_message(body, "logger")
+      send_message("Discarded: #{body}", "logger")
     end
   end
 rescue Interrupt => _

@@ -31,7 +31,7 @@ begin
   puts " [*] Waiting for messages..."
   puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
-    send_message(body, "logger")
+    send_message("Mediated: #{body}", "logger")
     send_message(body, "work_queue")
   end
 rescue Interrupt => _

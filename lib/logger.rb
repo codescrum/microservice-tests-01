@@ -20,7 +20,7 @@ begin
   puts " [*] Logger ------"
   puts " [*] Waiting for messages. To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
-    puts " [x] Received #{body}"
+    puts " [x] #{body}"
   end
 rescue Interrupt => _
   conn.close
