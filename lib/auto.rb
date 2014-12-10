@@ -22,7 +22,7 @@ stamp = 0
 
 loop do
   stamp = stamp + 1
-  random_string = ('a'..'z').to_a.shuffle[0,12].join
+  random_string = ('a'..'z').to_a.shuffle[0,3].join
   data = "[auto] - %03d - #{random_string}" % stamp
   ch.default_exchange.publish(data, :routing_key => q.name)
   puts " [Auto] Sent '#{data}'"
