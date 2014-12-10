@@ -26,10 +26,10 @@ conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
 ch   = conn.create_channel
-q    = ch.queue("encode")
+q    = ch.queue("work_queue")
 
 begin
-  puts " [*] Encoder ------"
+  puts " [*] Worker ------"
   puts " [*] Waiting for messages to process"
   puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|

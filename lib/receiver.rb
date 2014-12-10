@@ -18,7 +18,7 @@ q    = ch.queue("receiver")
 
 begin
   puts " [*] Final receiver ------"
-  puts " [*] Receiving processed/encoded messages..."
+  puts " [*] Receiving processed messages..."
   puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
     puts " [x] Received '#{body}'"
