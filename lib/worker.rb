@@ -33,6 +33,14 @@ begin
   puts " [*] Waiting for messages to process"
   puts " [*] To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
+
+    # Sleep a determinate amount of time, simulating a long running task
+    work_time = body.count(".").to_i
+
+    puts "    - Intensive task running #{work_time} seconds"
+    sleep work_time
+    puts "    [OK] done!"
+
     if body.match(pattern)
       send_message(body.reverse, "receiver")
     else
