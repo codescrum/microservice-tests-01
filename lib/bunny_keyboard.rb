@@ -23,11 +23,6 @@ module MyKeyboardHandler
 
     conn.close
   end
-
-  def rabbitmq_url
-    ENV['BOXEN_RABBITMQ_URL']
-    # url = "amqp://test:test@192.168.0.7:5672/test"
-  end
 end
 
 EM.run {
