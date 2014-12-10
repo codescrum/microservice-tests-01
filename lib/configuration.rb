@@ -5,7 +5,7 @@ class Configuration
   end
 
   def self.default_url
-    ""
+    "amqp://guest:guest@localhost:5672"
   end
 
   def self.boxen_rabbitmq_url
