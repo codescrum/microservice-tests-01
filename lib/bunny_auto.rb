@@ -14,9 +14,12 @@ conn.start
 ch   = conn.create_channel
 q    = ch.queue("hello")
 
+stamp = 0
+
 loop do
+  stamp = stamp + 1
   random_string = ('a'..'z').to_a.shuffle[0,12].join
-  data = "[auto] - #{random_string}"
+  data = "[auto] - %03d - #{random_string}" % stamp
   ch.default_exchange.publish(data, :routing_key => q.name)
   puts " [Auto] Sent '#{data}'"
   sleep 1
