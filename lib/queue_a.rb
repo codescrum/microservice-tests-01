@@ -16,7 +16,7 @@ def send_message(data, queue)
   send_conn.close
 end
 
-conn = Bunny.new(:automatically_recover => false)
+conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
 ch   = conn.create_channel
