@@ -22,9 +22,6 @@ bundle install
 cd lib
 ```
 6. edit configuration.rb to set the connection url to the rabbitmq server if necessary (just in case you are using non-default values for the ports, user, password, etc.)
-```bash
-ruby logger.rb
-```
 7. run the keyboard client, so you can type messages, hit enter to send. Messages will be
    queued in rabbitmq until a consumer appears
 ```bash
@@ -53,9 +50,56 @@ ruby auto_client.rb
   This will basically send a message to "queue_a" every second so you can see how the overall system works by looking a the various console outputs for each of the microservices.
 
 
-  ## Interesting this you can do now
+## Interesting thing you can do now
 
   1. Leave the system running and see how it behaves (basically is a message passing game)
   2. Using the keyboard client, put various messages with multiple dots "." to simulate load for the workers.
   3. Turn off services randomly and rerun them, you will see how messages are queued and processed when the microservices become available again.
   4. Enjoy!
+
+
+## Running each micro-service in docker container
+
+This steps assume you have docker installed and working in your system.
+
+### Run RabbitMQ Server
+
+1. Create and image for rabbitmq server:
+```bash
+docker build -t="dockerfile/rabbitmq" github.com/dockerfile/rabbitmq
+```
+2. Run a container from that image with:
+```bash
+run --name rabbitmq -d -p 5672:5672 -p 15672:15672 dockerfile/rabbitmq
+```
+
+### Run microservices in docker
+
+1. Create and image for micro-services (with ruby 2.1.1 and microservices bundle) doing:
+```bash
+docker build -t="microservices/client" .
+```
+2. Run the keyboard client:
+```bash
+ docker run --link rabbitmq:amq -t -i microservices/client ruby lib/keyboard_client.rb
+```
+3. Run the first service:
+```bash
+ docker run --link rabbitmq:amq -t -i microservices/client ruby lib/queue_a.rb
+```
+4. run ANY number of workers:
+```bash
+ docker run --link rabbitmq:amq -t -i microservices/client ruby lib/worker.rb
+```
+5. Run the receiver:
+```bash
+ docker run --link rabbitmq:amq -t -i microservices/client ruby lib/receiver.rb
+```
+6. Run the logger:
+```bash
+ docker run --link rabbitmq:amq -t -i microservices/client ruby lib/logger.rb
+```
+7. Finally, in order to not input messages manually, run:
+```bash
+ docker run --link rabbitmq:amq -t -i microservices/client ruby lib/auto_client.rb
+```
