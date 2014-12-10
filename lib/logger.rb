@@ -13,6 +13,7 @@ ch   = conn.create_channel
 q    = ch.queue("logger")
 
 begin
+  puts " [*] Logger ------"
   puts " [*] Waiting for messages. To exit press CTRL+C"
   q.subscribe(:block => true) do |delivery_info, properties, body|
     puts " [x] Received #{body}"
