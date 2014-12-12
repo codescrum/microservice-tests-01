@@ -26,8 +26,10 @@ end
 conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
-ch   = conn.create_channel
-q    = ch.queue("work_queue")
+ch = conn.create_channel
+x = ch.fanout("queue_a_exchange")
+q = ch.queue("work_queue", :exclusive => true)
+q.bind(x)
 
 begin
   puts " [*] Worker ------"
