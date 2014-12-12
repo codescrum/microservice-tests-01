@@ -14,8 +14,8 @@ conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
 ch = conn.create_channel
-x = ch.fanout("queue_a_exchange")
-q = ch.queue("logger")
+x = ch.fanout("gateway_exchange")
+q = ch.queue("logger_queue")
 q.bind(x)
 
 begin

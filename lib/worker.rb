@@ -27,7 +27,7 @@ conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
 ch = conn.create_channel
-x = ch.fanout("queue_a_exchange")
+x = ch.fanout("gateway_exchange")
 q = ch.queue("work_queue", :exclusive => true)
 q.bind(x)
 
@@ -46,10 +46,10 @@ begin
 
     # Only if contains a number, process it, otherwise discard it
     if body.match(pattern)
-      send_message(body.upcase, "receiver")
-      send_message("Processed: #{body}", "logger")
+      send_message(body.upcase, "receiver_queue")
+      send_message("Processed: #{body}", "logger_queue")
     else
-      send_message("Discarded: #{body}", "logger")
+      send_message("Discarded: #{body}", "logger_queue")
     end
   end
 rescue Interrupt => _

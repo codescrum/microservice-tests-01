@@ -28,10 +28,10 @@ This is a repo for microservice tests using rabbitmq.
   ```bash
   ruby keyboard_client.rb
   ```
-8. run the first service (queue_a) which takes messages and replays them to the workers
+8. run the gateway service which takes messages and replays them to the workers and logger through a fanout exchange.
 
   ```bash
-  ruby queue_a.rb
+  ruby gateway.rb
   ```
 9. run ANY number of workers. In order to control how much time workers perform a task, just type dots "." in the message you send using the keyboard client, example: "Hello!...." will take 4 seconds to process, because it has 4 dots ".".
 

@@ -14,7 +14,7 @@ def send_message(data)
   send_conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
   send_conn.start
   send_ch = send_conn.create_channel
-  send_ex = send_ch.fanout("queue_a_exchange")
+  send_ex = send_ch.fanout("gateway_exchange")
   send_ex.publish(data)
   puts " [x] Mediating '#{data}'"
   send_conn.close
@@ -24,7 +24,7 @@ conn = Bunny.new(Configuration.rabbitmq_url, :automatically_recover => false)
 conn.start
 
 ch = conn.create_channel
-q = ch.queue("queue_a")
+q = ch.queue("gateway_queue")
 
 begin
   puts " [*] Intermediate step ------"

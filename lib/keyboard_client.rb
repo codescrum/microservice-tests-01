@@ -20,7 +20,7 @@ module MyKeyboardHandler
     conn.start
 
     ch   = conn.create_channel
-    q    = ch.queue("queue_a")
+    q    = ch.queue("gateway_queue")
 
     ch.default_exchange.publish(data, :routing_key => q.name, :persistent => true)
     puts " [x] Keyboard Sent '#{data}'"
@@ -30,7 +30,7 @@ module MyKeyboardHandler
 end
 
 EM.run {
-  puts " [*] Keybord client ------"
+  puts " [*] Keyboard client ------"
   puts " [*] Type text and press Enter to send a message"
   puts " [*] To exit press CTRL+C"
   puts
